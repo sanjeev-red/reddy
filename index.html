@@ -1,1444 +1,639 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Balanju Consultancy</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE - Computer Science and Engineering | Balanju</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/kgF2cgdG/consultancy-logo.jpg">
+    <style>
+        /* ==== Base Styles ==== */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7fbe9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
 
-<!-- Favicon and Icons -->
-<link rel="shortcut icon" href="images/favicon/favicon.ico" type="image/x-icon">
-<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="images/favicon/android-chrome-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="images/favicon/android-chrome-512x512.png">
-<link rel="manifest" href="images/favicon/site.webmanifest">
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
+        .container {
+            background-color: white;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+        }
 
- <!-- ✅ Logo Structured Data (IMPORTANT for Google) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Balanju Consultancy",
-    "url": "https://www.balanju.com",
-    "logo": "https://www.balanju.com/images/favicon/android-chrome-512x512.png",
-    "sameAs":
-     [
-      "https://www.instagram.com/balanju_consultancy",
-      "https://www.youtube.com/@balanjuconsultancy1"
-    ]
-  }
-  </script>
+        h2 {
+            color: #2e7d32;
+            margin-top: 35px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+        }
 
+        ul {
+            font-size: 16px;
+            line-height: 1.8;
+            padding-left: 20px;
+        }
 
-  <style>
-    :root {
-      --primary-color: #002147;
-      --secondary-color: #ffeb3b;
-      --accent-color: #0d47a1;
-      --highlight-color: #0cad31;
-      --text-color: #333;
-      --light-bg: #e3f2fd;
-      --white: #ffffff;
-      --shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    
-    * { 
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box; 
-    }
+        li {
+            margin-bottom: 8px;
+        }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #e3f2fd, #ffffff);
-      color: var(--text-color);
-      line-height: 1.6;
-    }
+        .highlight {
+            font-size: 18px;
+            font-weight: bold;
+            color: #d32f2f;
+        }
 
-    /* Header Styles */
-    .main-header {
-      display: flex;
-      flex-direction: column;
-      padding: 20px 15px;
-      background-color: var(--primary-color);
-      color: white;
-    }
+        /* ==== Table Styles ==== */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
 
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-    }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
 
-    .header-text h1 {
-      color: var(--secondary-color);
-      font-size: 1.5rem;
-      margin-bottom: 5px;
-    }
+        .comparison-table th {
+            background-color: #2e7d32;
+            color: white;
+            font-weight: bold;
+        }
 
-    .header-text p {
-      color: #dcdcdc;
-      font-size: 0.9rem;
-    }
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
 
-    .notification-bar {
-      width: 100%;
-      background: #ffc107;
-      border-radius: 6px;
-      padding: 12px;
-      margin-top: 15px;
-      position: relative;
-      overflow: hidden;
-    }
+        .comparison-table tr:hover {
+            background-color: #f1f8e9;
+        }
 
-    .scroll-text {
-  display: inline-block;
-  white-space: nowrap;
-  animation: scroll-left 20s linear infinite;
-  font-weight: bold;
-  color: #000;
-  min-width: 100%;
-  will-change: transform;
-  transform: translateX(100%);
-}
+        /* ==== Testimonial ==== */
+        .testimonial {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-left: 5px solid #2e7d32;
+            border-radius: 0 8px 8px 0;
+            margin: 25px 0;
+            font-style: italic;
+            position: relative;
+        }
 
-   
+        .testimonial:before {
+            content: '"';
+            font-size: 60px;
+            color: #2e7d32;
+            opacity: 0.2;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
 
+        .testimonial p {
+            margin: 0;
+            padding-left: 30px;
+        }
 
-    .scroll-text a {
-      color: #000;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-    
-    @media (max-width: 768px) {
-  .scroll-text {
-    animation: scroll-left 15s linear infinite;
-  }
-}
+        .testimonial p:last-child {
+            text-align: right;
+            font-weight: bold;
+            color: #2e7d32;
+            font-style: normal;
+            margin-top: 10px;
+        }
 
-    @keyframes scroll-left {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
+        /* ==== Quiz ==== */
+        .quiz {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
 
+        .quiz button {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 5px 10px 5px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
+        .quiz button:hover {
+            background-color: #1565c0;
+        }
 
+        #quiz-result {
+            font-weight: bold;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 4px;
+            display: inline-block;
+        }
 
+        /* ==== Buttons ==== */
+        .buttons {
+            text-align: center;
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
 
-    /* Main Content */
-    .container {
-      padding: 20px 15px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+        .buttons a button {
+            padding: 12px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            min-width: 180px;
+        }
 
-    .section-title {
-      text-align: center;
-      margin: 20px 0;
-      font-size: 1.5rem;
-      color: var(--primary-color);
-    }
+        .buttons a button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
 
-    /* Search Section */
-    .search-section {
-      background-color: var(--light-bg);
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
+        .next-btn {
+            background-color: #4caf50;
+            color: white;
+        }
 
-    .search-box {
-      width: 100%;
-      max-width: 500px;
-      padding: 12px 15px;
-      border: 1px solid #ccc;
-      border-radius: 25px;
-      font-size: 1rem;
-      margin: 10px auto;
-      display: block;
-    }
+        .home-btn {
+            background-color: #2196f3;
+            color: white;
+        }
 
-    .search-results {
-      margin-top: 15px;
-      text-align: left;
-    }
+        /* ==== Counseling ==== */
+        .counseling {
+            background-color: #fff3cd;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 40px;
+            text-align: center;
+            border: 1px dashed #ff9800;
+        }
 
-    .result-card {
-      background-color: var(--white);
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      transition: all 0.3s ease;
-    }
+        .counseling button {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
 
-    .result-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    }
+        .counseling button:hover {
+            background-color: #fb8c00;
+        }
 
-    .result-card h3 {
-      color: var(--accent-color);
-      margin-bottom: 5px;
-    }
+        /* ==== Video ==== */
+        .video-section {
+            max-width: 1000px;
+            margin: 40px auto;
+            text-align: center;
+        }
 
-    /* Quick Links */
-    .quick-links {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-      margin: 25px 0;
-    }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
 
-    .quick-link {
-      background-color: var(--accent-color);
-      color: white;
-      padding: 15px;
-      border-radius: 8px;
-      text-align: center;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
-    .quick-link i {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
+        /* ==== Responsive ==== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 15px;
+            }
 
-    .quick-link:hover {
-      background-color: var(--highlight-color);
-      transform: translateY(-3px);
-    }
+            header {
+                font-size: 22px;
+                padding: 15px 0;
+            }
 
-    /* EAMCET Section */
-    .eamcet-section {
-      background-color: #f0f8ff;
-      padding: 20px;
-      border-radius: 10px;
-      margin: 25px 0;
-      border-top: 2px solid #ddd;
-    }
+            h2 {
+                font-size: 20px;
+            }
 
-    .eamcet-buttons {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 10px;
-      margin-top: 15px;
-    }
+            .buttons a button {
+                width: 100%;
+                margin: 5px 0;
+            }
 
-    .eamcet-btn {
-      background-color: #0066cc;
-      color: white;
-      padding: 12px;
-      border-radius: 6px;
-      text-decoration: none;
-      text-align: center;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
+            .comparison-table {
+                font-size: 14px;
+            }
 
-    .eamcet-btn:hover {
-      background-color: #004b99;
-      transform: translateY(-2px);
-    }
-
-    /* Video Section */
-    .video-container {
-      position: relative;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
-      height: 0;
-      overflow: hidden;
-      margin: 20px 0;
-      border-radius: 10px;
-      box-shadow: var(--shadow);
-    }
-
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* Form Section */
-    .form-section {
-      background-color: var(--white);
-      padding: 20px;
-      border-radius: 10px;
-      margin: 25px 0;
-      box-shadow: var(--shadow);
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1rem;
-    }
-
-    .form-submit {
-      background-color: #1976d2;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      font-size: 1rem;
-      cursor: pointer;
-      width: 100%;
-      transition: background 0.3s;
-    }
-
-    .form-submit:hover {
-      background-color: #0d47a1;
-    }
-
-    .thank-you-message {
-      display: none;
-      background: #e8f5e9;
-      color: #2e7d32;
-      padding: 20px;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-
-    /* Feedback Section */
-    .feedback-section {
-      background-color: #fff8e1;
-      padding: 20px;
-      border-radius: 10px;
-      margin: 30px 0;
-    }
+            .comparison-table th, 
+            .comparison-table td {
+                padding: 8px 10px;
+            }
+        }
 
 
-
-
-
-    
-    /* WhatsApp Float */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25D366;
-      color: white;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      text-decoration: none;
-      z-index: 1000;
-    }
-
-    /* Tablet Layout */
-    @media (min-width: 768px) {
-      .main-header {
-        flex-direction: row;
-        align-items: center;
+         /* Quiz Styles */
+    .quiz-section {
+        background-color: #e3f2fd;
         padding: 25px;
-      }
-      
-      .notification-bar {
-        margin-top: 0;
-        margin-left: 20px;
-      }
-      
-      .header-text h1 {
-        font-size: 2rem;
-      }
-      
-      .quick-links {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      }
-      
-      .form-section {
-        padding: 30px;
-      }
+        border-radius: 10px;
+        margin: 30px 0;
     }
 
-    /* Desktop Layout */
-    @media (min-width: 1024px) {
-      .container {
-        padding: 30px;
-      }
-      
-      .section-title {
-        font-size: 2rem;
-        margin: 30px 0;
-      }
-      
-      .quick-links {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px;
-      }
+    .quiz-question {
+        display: none;
+        padding: 15px 0;
+    }
+
+    .quiz-question.active {
+        display: block;
+    }
+
+    .quiz-question button {
+        background-color: #1976d2;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        margin: 8px 10px 8px 0;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .quiz-question button:hover {
+        background-color: #1565c0;
+    }
+
+    .quiz-result {
+        text-align: center;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        display: none;
+    }
+
+    #result-title {
+        color: #2e7d32;
+    }
+
+    .quiz-result button {
+        background-color: #ff9800;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin-top: 15px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+     .syllabus-button {
+        margin: 20px 0 40px;
+        text-align: center;
     }
     
-   /* Update Bar Inside Header */
-.floating-update-bar.header-version {
-  position: static;
-  margin-top: 15px;
-  transform: none;
-  background: linear-gradient(to right, gold, #ffeb3b);
-  padding: 14px 20px;
-  font-size: 1rem;
-  border-radius: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  display: flex;
-  gap: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  animation: slideIn 0.6s ease-in-out;
-}
-
-.floating-update-bar.header-version .update-btn {
-  font-size: 0.95rem;
-  padding: 8px 16px;
-  background: #0d47a1;
-  color: white;
-  text-decoration: none;
-  border-radius: 20px;
-  transition: background 0.3s ease;
-}
-
-.floating-update-bar.header-version .update-btn:hover {
-  background: #1565c0;
-}
-
-#updateText, #updateLink {
-  transition: opacity 0.4s ease-in-out;
-}
-
-/* Entry Animation */
-@keyframes slideIn {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-
-.result-card {
-  background-color: white;
-  padding: 16px;
-  margin: 10px 0;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-  text-decoration: none;
-  color: #333;
-  display: block;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.result-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-}
-
-.result-card h3 {
-  margin-bottom: 6px;
-  font-size: 1.1rem;
-  color: #0d47a1;
-}
-
-.result-card p {
-  font-size: 0.9rem;
-  color: #555;
-}
-
-
-.result-card {
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-  .about-trust {
-  background: gold;
-  padding: 50px 20px;
-}
-
-.about-box {
-  max-width: 1100px;
-  margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 30px;
-}
-
-.founder-photo img {
-  width: 240px;
-  border-radius: 10px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-}
-
-.founder-text {
-  flex: 1;
-}
-
-.founder-text h2 {
-  color: #0d47a1;
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-}
-
-.founder-text h3 {
-  margin-top: 20px;
-  font-size: 1.2rem;
-  color: #333;
-}
-
-.founder-text p {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: #444;
-}
-
-.founder-text ul {
-  margin: 15px 0;
-  padding-left: 20px;
-  color: #555;
-  font-size: 0.95rem;
-}
-
-.founder-text li {
-  margin-bottom: 8px;
-}
-
-
-@media (max-width: 768px) {
-  .founder-container {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .founder-image img {
-    width: 180px;
-    margin: 0 auto;
-  }
-
-  .founder-content h2 {
-    font-size: 1.6rem;
-    margin-top: 20px;
-  }
-
-  .founder-content .tagline {
-    font-size: 1rem;
-  }
-
-  .founder-content .badges {
-    justify-content: center;
-  }
-}
-  .note-message {
-  font-size: 1rem;
-  color: #555;
-  margin-top: 20px;
-  background: #fff8e1;
-  padding: 15px 20px;
-  border-left: 4px solid #fbc02d;
-  border-radius: 8px;
-  line-height: 1.6;
-}
-
-
-.floating-cta {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeeba;
-  border-radius: 8px;
-  padding: 10px 15px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 9999;
-  animation: floatUpDown 2.5s ease-in-out infinite;
-  max-width: 95%;
-  white-space: nowrap;
-}
-
-/* Message Text */
-.cta-message {
-  font-weight: 600;
-}
-
-/* Close Button */
-.floating-cta .close-btn {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  color: #856404;
-}
-
-/* CTA Button */
-.cta-button {
-  background-color: #28a745;
-  color: white;
-  padding: 8px 16px;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-}
-
-.cta-button:hover {
-  background-color: #218838;
-}
-
-    /* Animation */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .syllabus-button button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.2s;
     }
-
-    .fade-in {
-      animation: fadeIn 0.3s ease-out forwards;
-    }
-
-    /* Mobile-specific adjustments */
-    @media (max-width: 480px) {
-      .grid-container {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      }
-      
-      .card {
-        padding: 10px 5px;
-        font-size: 13px;
-      }
-      
-      .whatsapp-button {
-        font-size: 13px;
-        padding: 8px 12px;
-      }
-      
-      .promo-box {
-        padding: 12px;
-      }
+    
+    .syllabus-button button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
 
-    .professional-footer {
-  background: linear-gradient(135deg, #1a3a4a 0%, #0d2b3a 100%);
-  color: #ffffff;
-  padding: 3rem 0 1.5rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border-top: 3px solid #2a9d8f;
-}
+    @media (max-width: 768px) {
+    header {
+        font-size: 20px;
+        padding: 15px 0;
+    }
 
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.footer-top {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2.5rem;
-  margin-bottom: 2rem;
-}
-
-.footer-heading {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  color: #2a9d8f;
-  position: relative;
-  padding-bottom: 0.5rem;
-}
-
-.footer-heading::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 40px;
-  height: 2px;
-  background: #e9c46a;
-}
-
-.footer-links {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-links li {
-  margin-bottom: 0.8rem;
-}
-
-.footer-links a {
-  color: #d3e0e4;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  font-size: 0.95rem;
-  display: block;
-}
-
-.footer-links a:hover {
-  color: #ffffff;
-  transform: translateX(5px);
-}
-
-.highlight-link {
-  color: #e9c46a !important;
-  font-weight: 500;
-}
-
-.contact-info p {
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  color: #d3e0e4;
-  font-size: 0.95rem;
-}
-
-.contact-info i {
-  width: 20px;
-  color: #2a9d8f;
-}
-
-.social-media {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-.social-media a {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.social-media a:hover {
-  background: #2a9d8f;
-  transform: translateY(-3px);
-}
-
-.footer-bottom {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  text-align: center;
-  font-size: 0.9rem;
-  color: #a8c0c8;
-}
-
-.legal-links {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 0.8rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.legal-links a {
-  color: #a8c0c8;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.legal-links a:hover {
-  color: #e9c46a;
-}
-
-@media (max-width: 768px) {
-  .footer-top {
-    grid-template-columns: 1fr 1fr;
-  }
-  
-  .footer-bottom {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer-top {
-    grid-template-columns: 1fr;
-  }
-  
-  .footer-heading {
-    margin-top: 1.5rem;
-  }
-}
-
-.announcement-bar {
-  display: flex;
-  align-items: center;
-  background-color: #f26522;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 15px;
-  color: white;
-  height: 40px;
-  overflow: hidden;
-}
-
-.update-label {
-  background-color: red;
-  font-weight: bold;
-  padding: 0 15px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-}
-
-.announcement-content {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-  padding-left: 15px;
-  overflow: hidden;
-}
-
-.badge-new {
-  background-color: #007a5c; /* dark green */
-  padding: 2px 6px;
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: bold;
-  margin-right: 5px;
-  display: inline-block;
-  color: white;
-  white-space: nowrap;
-}
-
-.marquee {
-  overflow: hidden;
-  position: relative;
-  flex: 1;
-}
-
-.marquee-content {
-  display: inline-block;
-  white-space: nowrap;
-  animation: marquee 25s linear infinite;
-}
-
-.marquee-content a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-}
-
-.marquee-content a:hover {
-  text-decoration: underline;
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
+    .container {
+        padding: 20px 15px;
+        margin: 15px;
+        border-radius: 8px;
+    }
 
 
+    }
 
 
-  </style>
-
-  
+    
+    </style>
 </head>
 <body>
-  <div class="announcement-bar">
-  <div class="update-label">UPDATES</div>
-  <div class="announcement-content">
-    <div class="marquee">
-      <div class="marquee-content">
-        <span class="badge-new">🆕 NEW</span>
-        <a href="10footer.html">Orientation Programme (Online) For UG Students (2025–26)</a> |
-        <a href="10footer.html">TG EAPCET 2025 Results</a> |
-        <a href="10footer.html">Explore All Educational Paths</a> |
-        <a href="10footer.html">Latest Notifications</a>
-      </div>
-    </div>
-  </div>
-</div>
 
-</div>
-  <!-- Header Section -->
-  <header class="main-header">
-    <div class="header-top">
-      <div class="header-text">
-        <h1><font face="roboto">🎓 BALANJU<br> CONSULTANCY</font></h1>
-        <p><b>Explore all educational paths at one place</b></p>
-      </div>
-    </div><font color="black">
-    <div class="floating-update-bar header-version" id="updateBar">
-  <span id="updateText">📢 EAPCET  College Predictor launched!</span>
-  <a href="999-TS-COLLEGE-PREDUCTOR.HTML" class="update-btn" id="updateLink">View</a>
-    </font>
+<header>
+    CSE – Computer Science and Engineering
+</header>
 
-</div>
+<div class="container">
+    <h2>📘 Overview</h2>
+    <p><span class="highlight">Computer Science and Engineering (CSE)</span> is one of the most in-demand branches focused on computing, software, and information systems.</p>
+    <p>It covers the <b>theory, development, and application</b> of software and hardware. From apps and websites to AI 🤖, cybersecurity 🔒, and data science 📊 — CSE powers the digital world.</p>
 
-<div class="floating-cta" id="ctaBox">
-  <span class="close-btn" onclick="document.getElementById('ctaBox').style.display='none'">✖</span>
-  <span class="cta-message"></span>
-  <a href="1000paid-cousilling.html" class="cta-button">EAMPCET Counseling Support</a>
-</div>
+    <h2>📚 Core Subjects</h2>
+    <ul>
+        <li>🖥️ Programming in C, C++, Python, Java</li>
+        <li>💾 Data Structures and Algorithms</li>
+        <li>🧠 Artificial Intelligence & Machine Learning</li>
+        <li>🛡️ Cyber Security</li>
+        <li>🖧 Computer Networks</li>
+        <li>🧮 Operating Systems</li>
+        <li>🔍 Database Management Systems (DBMS)</li>
+        <li>🌐 Web Technologies</li>
+        <li>📊 Data Science & Big Data</li>
+        <li>📈 Software Engineering & DevOps</li>
+    </ul>
 
 
-
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CFEBSZ4294"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-CFEBSZ4294');
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-  </header>
-
-
-
-
-
-
-
-  <script>
-  const updates = [
-   
-   {
-  text: "📢TS EAPCET Schedule",
-  link: "ts-eapcet-schedule.html"
-},
-
-
-
-  ];
-
-  let index = 0;
-  const updateText = document.getElementById("updateText");
-  const updateLink = document.getElementById("updateLink");
-
-  setInterval(() => {
-    updateText.style.opacity = 0;
-    updateLink.style.opacity = 0;
-
-    setTimeout(() => {
-      updateText.textContent = updates[index].text;
-      updateLink.href = updates[index].link;
-
-      updateText.style.opacity = 1;
-      updateLink.style.opacity = 1;
-
-      index = (index + 1) % updates.length;
-    }, 300); // Delay for fade out
-  }, 2000); // 2 seconds between updates
-</script>
-
-
-
-
-  <!-- Main Content -->
-  <div class="container">
-    <!-- Search Section -->
-    <section class="search-section">
-      <h2 class="section-title">🔍 Find What You're Looking For</h2>
-      <input type="text" id="searchBox" class="search-box" placeholder="Search for CSE, Pharmacy, Cutoff, ECE..." oninput="showResults()">
-      <div id="searchResults" class="search-results"></div>
-    </section>
-
-    <!-- EAMCET Quick Access -->
-    <section class="eamcet-section">
-      <h2 class="section-title">🎓 EAPCET Quick Access</h2>
-      <div class="eamcet-buttons">
-        <a href="1000paid-cousilling.html" class="eamcet-btn">🎯Counselling support</a>
-         <a href="999-TS-COLLEGE-PREDUCTOR.HTML" class="eamcet-btn">📊 College Predictor</a>
-        <a href="150-eapcet-cut-offs.html" class="eamcet-btn">✅ CUT OFF'S RESORCES</a>
-        
-        <a href="150-eamcet-all-colleges.html" class="eamcet-btn">🏆Colleg filter & CODES</a>
-      </div>
-    </section>
-
-    <!-- Quick Links -->
-    <h2 class="section-title">📚 Find your path</h2>
-    <div class="quick-links">
-      <a href="index-engineering.html" class="quick-link">
-        <i class="fas fa-laptop-code"></i>
-        Engineering
-      </a>
-      <a href="1010degree page.html" class="quick-link">
-        <i class="fas fa-graduation-cap"></i>
-        Degree
-      </a>
-      <a href="1010pharma page.html" class="quick-link">
-        <i class="fas fa-flask"></i>
-        Pharma
-      </a>
-      <a href="1010intermediate.html" class="quick-link">
-        <i class="fas fa-school"></i>
-        Intermediate
-      </a>
-      <a href="1010school page.html" class="quick-link">
-        <i class="fas fa-chalkboard-teacher"></i>
-        Schools
-      </a>
-      <a href="1010MBA PAGE.HTML" class="quick-link">
-        <i class="fas fa-university"></i>
-        MBA
-      </a>
-     
-    </div>
-
-
-    <!-- Video Section -->
-    <section>
-      <h2 class="section-title">📺 Watch CSE Info</h2>
-      <div class="video-container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/kLJHlmXdYK0?si=sTUg5-yNKC3tF7M1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-      </div>
-    </section>
-
-
-
-    <!-- Feedback Section -->
-    <section class="feedback-section">
-      <h2 class="section-title">📝 Got Feedback or Need Help?</h2>
-      <p>Have something to say? Tell us how we can help or what you think about our service.</p>
-      <form action="https://formspree.io/f/mwpodlvj" method="POST" style="margin-top: 20px;">
-        <input type="text" name="name" class="form-input" placeholder="Your Name" required>
-        <input type="email" name="email" class="form-input" placeholder="Your Email" required>
-        <textarea name="message" class="form-input" rows="4" placeholder="Your Feedback or Help Request..." required></textarea>
-        <button type="submit" class="form-submit">
-          <i class="fas fa-paper-plane"></i> Submit Feedback
+      <div class="syllabus-button">
+    <a href="cse-syllabus-details.html" target="_blank">
+        <button>
+            📖 View Full Syllabus (Semester-wise) ➡️
         </button>
-      </form>
-    </section>
-  </div>
-
-  <!-- WhatsApp Float -->
-  <a class="whatsapp-float" href="https://wa.me/7207800211" target="_blank" title="Chat with us on WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-  </a>
+    </a>
+</div>
 
 
+    <h2>🛠️ Tools & Technologies You'll Learn</h2>
+    <ul>
+        <li><strong>Languages:</strong> Python, Java, C++, JavaScript</li>
+        <li><strong>Web Dev:</strong> HTML/CSS, React, Node.js</li>
+        <li><strong>AI/ML:</strong> TensorFlow, PyTorch</li>
+        <li><strong>Databases:</strong> MySQL, MongoDB</li>
+        <li><strong>DevOps:</strong> Docker, Kubernetes, AWS</li>
+    </ul>
 
-  <section class="about-trust">
-  <div class="about-box">
-    <div class="founder-photo">
+        <div class="syllabus-button">
+    <a href="cse-syllabus-details.html" target="_blank">
+        <button>
+            📖 Explore this programing languages➡️
+        </button>
+    </a>
+</div>
 
+
+    <h2>⚖️ CSE vs Other Branches</h2>
+    <table class="comparison-table">
+        <tr>
+            <th>Factor</th>
+            <th>CSE</th>
+            <th>Mechanical</th>
+            <th>ECE</th>
+        </tr>
+        <tr>
+            <td><strong>Coding Focus</strong></td>
+            <td>✅ High</td>
+            <td>❌ Low</td>
+            <td>⚠️ Medium</td>
+        </tr>
+        <tr>
+            <td><strong>Math Intensity</strong></td>
+            <td>⚠️ Medium</td>
+            <td>✅ High</td>
+            <td>✅ High</td>
+        </tr>
+        <tr>
+            <td><strong>Hardware/Software</strong></td>
+            <td>Software</td>
+            <td>Hardware</td>
+            <td>Both</td>
+        </tr>
+        <tr>
+            <td><strong>Avg. Starting Salary</strong></td>
+            <td>₹6-12 LPA</td>
+            <td>₹4-8 LPA</td>
+            <td>₹5-10 LPA</td>
+        </tr>
+        <tr>
+            <td><strong>Top Companies</strong></td>
+            <td>Google, Microsoft</td>
+            <td>TATA, ISRO</td>
+            <td>Intel, Qualcomm</td>
+        </tr>
+    </table>
+
+    <h2>💼 Job Opportunities</h2>
+    <ul>
+        <li>👨‍💻 Software Developer / Programmer</li>
+        <li>🧠 AI/ML Engineer</li>
+        <li>🧮 Data Scientist / Data Analyst</li>
+        <li>🛡️ Cybersecurity Analyst</li>
+        <li>☁️ Cloud Engineer</li>
+        <li>🖥️ Full Stack Web Developer</li>
+        <li>📱 Mobile App Developer</li>
+        <li>🛠️ DevOps Engineer</li>
+        <li>🖧 Network/System Administrator</li>
+        <li>🧪 QA/Test Engineer</li>
+    </ul>
+
+
+     <div class="syllabus-button">
+    <a href="cse-syllabus-details.html" target="_blank">
+        <fotn color="black"></fotn> <button>
+            📖 KNOW ABOUR YOUR FUTURE ➡️</fotn>
+        </button>
+    </a>
+</div>
+
+
+    <h2>📈 Future Demand</h2>
+    <p>The world runs on code! From AI to blockchain, demand for CSE professionals is skyrocketing. Every industry — finance, health, education, gaming — needs tech talent.</p>
+
+    <h2>🛑 CSE Reality Check</h2>
+    <ul>
+        <li>⚠️ <strong>Not Just Coding:</strong> Math (DSA, Discrete Math) is equally important.</li>
+        <li>⚠️ <strong>Competition is High:</strong> 1000s graduate yearly—only skilled candidates get top jobs.</li>
+        <li>⚠️ <strong>Continuous Learning:</strong> Tech evolves fast (AI, Cloud). You must upskill constantly.</li>
+        <li>💡 <strong>Tip:</strong> If you hate problem-solving, CSE may frustrate you.</li>
+    </ul>
+
+
+    <h2>🎤 Student Experience</h2>
+    <div class="testimonial">
+        <p>I chose CSE for job opportunities, but I struggled with Data Structures initially. With consistent practice (LeetCode, projects), I landed a ₹10 LPA offer. <strong>Passion + effort matters more than the branch!</strong></p>
+        <p>— Harsha, CSE Graduate</p>
     </div>
-    <div class="founder-text">
-      <h2>Hi, I'm Balaji Nayak</h2>
-<p class="tagline">This platform — built to guide every student, every step.</p>
-<p class="bio">
-  
 
-  Whether you're confused about career options, looking for exam dates, cutoff info, or full guidance — everything is here. Verified. Updated. Designed to save your time and guide you right.
-  <br><br>
-  I also offer paid group exam guidance, online sessions, and course recommendations. You don’t need to run around — just start here.
-</p>
-<ul class="badges">
-  <li>🎯 All Career Paths</li>
-  <li>📊 Admission & Exam Support</li>
-  <li>📚 JEE, EAMCET, NEET, Degree, PG</li>
-  <li>💬 Paid Counseling & Doubt Sessions</li>
-</ul>
-  <h2>"I’m not here to impress — I’m here to guide. And I’m just getting started.” 💪</h2>
-
-  <p class="note-message"><font color="black" face="roboto">
-  Many more services, tools, and features are still under development. <span class="highlight">We’re working to bring everything very soon.</span> Thank you for trusting us. 🙏
-</font></p>
+    <h2>🤔 Still Confused? Take a Quick Quiz!</h2>
+       
 
 
-
-
-
-
-
-</section>
-
-<!-- Footer -->
-<footer class="professional-footer">
-  <div class="footer-container">
-    <div class="footer-top">
-      <!-- Column 1: General FAQs -->
-      <div class="footer-column">
-        <h4 class="footer-heading">Popular Questions</h4>
-        <ul class="footer-links">
-          <li><a href="#">What is career counseling?</a></li>
-          <li><a href="#">How to choose the right college?</a></li>
-          <li><a href="#">Which courses have good scope?</a></li>
-          <li><a href="#">Is EAMCET enough to get a seat?</a></li>
-          <li><a href="#" class="highlight-link">Chat with our Counselor</a></li>
-        </ul>
-      </div>
-
-      <!-- Column 2: Categories -->
-      <div class="footer-column">
-        <h4 class="footer-heading">Top Categories</h4>
-        <ul class="footer-links">
-          <li><a href="#">Engineering</a></li>
-          <li><a href="#">Medical</a></li>
-          <li><a href="#">Diploma & Polytechnic</a></li>
-          <li><a href="#">Pharmacy</a></li>
-          <li><a href="#">ITI Courses</a></li>
-        </ul>
-      </div>
-
-      <!-- Column 3: Student Resources -->
-      <div class="footer-column">
-        <h4 class="footer-heading">Resources</h4>
-        <ul class="footer-links">
-          <li><a href="#">Cutoff Ranks</a></li>
-          <li><a href="#">College List (PDF)</a></li>
-          <li><a href="#">Scholarships</a></li>
-          <li><a href="#">Admission Process</a></li>
-          <li><a href="#">Application Dates</a></li>
-        </ul>
-      </div>
-
-      <!-- Column 4: Contact & Social -->
-      <div class="footer-column">
-        <h4 class="footer-heading">Contact</h4>
-        <div class="contact-info">
-          <p><i class="fas fa-phone"></i> +91 720 7800 211</p>
-          <p><i class="fas fa-envelope"></i> balanjuinfo@gmail.com</p>
-          <p><i class="fas fa-map-marker-alt"></i> Hyderabad, Telangana</p>
-        </div>
-        <div class="social-media">
-         <a href="https://chat.whatsapp.com/K5D4AfvukoY2vL07cfPYh0"><i class="fab fa-whatsapp"></i></a>
-          <a href="https://youtube.com/@balanjuconsultancy1?si=3s4r6SGrs-r2JKrx"><i class="fab fa-youtube"></i></a>
-          <a href="https://www.instagram.com/balanju_consultancy?igsh=MXB6NmNuaGJ2azA3bg=="><i class="fab fa-instagram"></i></a>
-          <a href="https://www.linkedin.com/in/balaji-nayak-027050360?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom Footer -->
-    <div class="footer-bottom">
-      <p>&copy; 2025 <strong>Balanju.com</strong> — Educational & Career Support.</p>
-      <div class="legal-links">
-        <a href="#">About</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Use</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-  <script>
-    const searchData = [
-
-
-
-
-/*INDEXES*/
-/*states*/
-
-  
-
-   
-  { name: "Andhra Pradesh (AP COLLEGE INDEX)", link: "index-ap-college.html", icon: "🏫", desc: "Explore top colleges in Andhra Pradesh." },
-  { name: "Telangana (TS COLLEGE INDEX)", link: "index-ts-college.html", icon: "🏫", desc: "Explore top colleges in Telangana." },
-  { name: "Maharashtra (MH COLLEGE INDEX)", link: "index-maharastha-college.html", icon: "🏫", desc: "Explore top colleges in Maharashtra." },
-  { name: "Delhi (DELHI COLLEGE INDEX)", link: "index-dehli-college.html", icon: "🏫", desc: "Explore top colleges in Delhi." },
-  { name: "Karnataka (KA COLLEGE INDEX)", link: "index-karnataka-college-index.html", icon: "🏫", desc: "Explore top colleges in Karnataka." },
-  { name: "Tamil Nadu (TN COLLEGE INDEX)", link: "index-THAMIL-COLLEGE.html", icon: "🏫", desc: "Explore top colleges in Tamil Nadu." },
-  { name: "Kerala (KL COLLEGE INDEX)", link: "index-kerala-college.html", icon: "🏫", desc: "Explore top colleges in Kerala." },
-  { name: "Uttar Pradesh (UP COLLEGE INDEX)", link: "index-uttarprad-college.html", icon: "🏫", desc: "Explore top colleges in Uttar Pradesh." },
-  { name: "Bihar (BR COLLEGE INDEX)", link: "index-bihar-college.html", icon: "🏫", desc: "Explore top colleges in Bihar." },
-  { name: "West Bengal (WB COLLEGE INDEX)", link: "index-west-bengal-college.html", icon: "🏫", desc: "Explore top colleges in West Bengal." },
-  { name: "Rajasthan (RJ COLLEGE INDEX)", link: "index-rajasthan-college.html", icon: "🏫", desc: "Explore top colleges in Rajasthan." },
-  { name: "Gujarat (GJ COLLEGE INDEX)", link: "index-gujarath-college.html", icon: "🏫", desc: "Explore top colleges in Gujarat." },
-  { name: "Madhya Pradesh (MP COLLEGE INDEX)", link: "index-madhyaprad-college.html", icon: "🏫", desc: "Explore top colleges in Madhya Pradesh." },
-  { name: "Haryana (HR COLLEGE INDEX)", link: "index-haryana-college.html", icon: "🏫", desc: "Explore top colleges in Haryana." },
-  { name: "Punjab (PB COLLEGE INDEX)", link: "index-pb-college.html", icon: "🏫", desc: "Explore top colleges in Punjab." },
-  { name: "Jharkhand (JH COLLEGE INDEX)", link: "index-jarkhand-college.html", icon: "🏫", desc: "Explore top colleges in Jharkhand." },
-  { name: "Chhattisgarh (CG COLLEGE INDEX)", link: "index-chhattisgarh-college.html", icon: "🏫", desc: "Explore top colleges in Chhattisgarh." },
-  { name: "Odisha (OD COLLEGE INDEX)", link: "index-odisha-college.html", icon: "🏫", desc: "Explore top colleges in Odisha." },
-  { name: "Assam (AS COLLEGE INDEX)", link: "index-assam-college.html", icon: "🏫", desc: "Explore top colleges in Assam." },
-  { name: "Himachal Pradesh (HP COLLEGE INDEX)", link: "index-hemachal-college.html", icon: "🏫", desc: "Explore top colleges in Himachal Pradesh." },
-  { name: "Uttarakhand (UK COLLEGE INDEX)", link: "index-uttarakhand-college.html", icon: "🏫", desc: "Explore top colleges in Uttarakhand." },
-  { name: "Goa (GA COLLEGE INDEX)", link: "index-ga-college.html", icon: "🏫", desc: "Explore top colleges in Goa." },
-  { name: "Tripura (TR COLLEGE INDEX)", link: "index-tripura-college.html", icon: "🏫", desc: "Explore top colleges in Tripura." },
-  { name: "Meghalaya (ML COLLEGE INDEX)", link: "index-meghalaya-college.html", icon: "🏫", desc: "Explore top colleges in Meghalaya." },
-  { name: "Manipur (MN COLLEGE INDEX)", link: "index-manipur-college.html", icon: "🏫", desc: "Explore top colleges in Manipur." },
-  { name: "Nagaland (NL COLLEGE INDEX)", link: "index-nagaland-college.html", icon: "🏫", desc: "Explore top colleges in Nagaland." },
-  { name: "Mizoram (MZ COLLEGE INDEX)", link: "index-mezoram-college.html", icon: "🏫", desc: "Explore top colleges in Mizoram." },
-  { name: "Sikkim (SK COLLEGE INDEX)", link: "index-sikkim-college.html", icon: "🏫", desc: "Explore top colleges in Sikkim." },
-  { name: "Arunachal Pradesh (AR COLLEGE INDEX)", link: "index-arunachal-college.html", icon: "🏫", desc: "Explore top colleges in Arunachal Pradesh." },
-  
-
-
+    <!-- Replace the existing quiz section with this -->
+<div class="quiz-section">
+    <h2>🤔 Still Confused? Take This 2-Minute Quiz!</h2>
+    <p><em>Answer honestly to see if CSE aligns with your interests.</em></p>
     
-  { name: "Cut-off Analysis", link: "01-cut-off.html", icon: "📉", desc: "Explore previous year cut-off scores and trends." },
-  { name: "TS EAMCET Updated", link: "01-ts-eamcet-updated.html", icon: "🧾", desc: "Latest updates and info on TS EAMCET." },
-  { name: "Amity University Exam", link: "10amity-EXAM.html", icon: "🏛️", desc: "Entrance details for Amity University." },
-  { name: "BITSAT Exam", link: "10BITSAT.html", icon: "🧠", desc: "Exam info for BITS Pilani's BITSAT entrance test." },
-  { name: "JEE Mains", link: "10jee_mains.html", icon: "🧪", desc: "All details for JEE Mains entrance exam." },
-  { name: "JEE Advanced", link: "10JEE-ADVANCE-EXAM.html", icon: "🚀", desc: "JEE Advanced details for IIT aspirants." },
-  { name: "MET (Manipal) Exam", link: "10MET-MANIPAL-EXAM.HTML", icon: "🏥", desc: "Manipal Entrance Test (MET) details." },
-  { name: "SMJEEE Exam", link: "10SMJEEE.html", icon: "📘", desc: "Sikkim Manipal University engineering entrance exam." },
-  { name: "VITEEE Exam", link: "10VITEEE-EXAM.html", icon: "🏫", desc: "VIT Engineering Entrance Examination details." },
-  { name: "AP EAMCET", link: "11ap_eamcet-EXAM.html", icon: "📍", desc: "Andhra Pradesh EAMCET exam info and updates." },
-  { name: "BCECE Bihar Exam", link: "11BCECE-BIHAR-EXAM.html", icon: "📄", desc: "Bihar Combined Entrance Competitive Examination info." },
-  { name: "CGPET Chhattisgarh Exam", link: "11cgpet-Chhattisgarh-EXAM.html", icon: "🗺️", desc: "Engineering admission exam for Chhattisgarh state." },
-  { name: "GUJCET Gujarat Exam", link: "11GUJCET-GUJARATH-EXAM.html", icon: "🌉", desc: "Gujarat Common Entrance Test information." },
-  { name: "JCECE Jharkhand Exam", link: "11jcece-JARKHAND-EXAM.html", icon: "🌿", desc: "Jharkhand Combined Entrance Competitive Examination info." },
-  { name: "KCET Karnataka Exam", link: "11KCET-KARNATAKA-EXAM.html", icon: "🎓", desc: "Karnataka Common Entrance Test details." },
-  { name: "KEAM Kerala Exam", link: "11KEAM-KERALA-EXAM.html", icon: "🌴", desc: "Kerala Engineering Architecture Medical exam info." },
-  { name: "MHTCET Maharashtra Exam", link: "11MHTCET-MAHARASTHA-EXAM.HTML", icon: "🚗", desc: "Maharashtra CET exam details for engineering." },
-  { name: "OJEE Odisha Exam", link: "11OJEE-EXAM.html", icon: "🏞️", desc: "Odisha Joint Entrance Examination overview." },
-  { name: "REAP Rajasthan Exam", link: "11REAP-RAJASTHAN-EXAM.html", icon: "🏜️", desc: "Rajasthan Engineering Admission Process details." },
-  { name: "TS EAPCET", link: "11TS-EAPCET-EXAM.html", icon: "📘", desc: "Telangana State Engineering entrance test." },
-  { name: "UPCET Uttar Pradesh", link: "11UPCET-UTTHAR.html", icon: "🕌", desc: "Uttar Pradesh Combined Entrance Test (UPCET) details." },
+    <div id="quiz-container">
+        <!-- Question 1 -->
+       <!-- Question 1 -->
+<div class="quiz-question active" id="q1">
+    <p><strong>1. Do you like solving brain teasers or riddles?</strong></p>
+    <button onclick="nextQuestion(1, 2)">Yes, it's fun! 🤓</button>
+    <button onclick="nextQuestion(1, 0)">Not my thing 😕</button>
+</div>
+
+<!-- Question 2 -->
+<div class="quiz-question" id="q2">
+    <p><strong>2. Are you okay with math problems (like solving equations)?</strong></p>
+    <button onclick="nextQuestion(2, 2)">Yes, no problem! ➗</button>
+    <button onclick="nextQuestion(2, 0)">Math is tough 😅</button>
+</div>
+
+<!-- Question 3 -->
+<div class="quiz-question" id="q3">
+    <p><strong>3. What do you think about coding (making apps/websites)?</strong></p>
+    <button onclick="nextQuestion(3, 3)">Sounds awesome! 💻</button>
+    <button onclick="nextQuestion(3, 1)">I'll try it 🤔</button>
+    <button onclick="nextQuestion(3, 0)">Not for me 🚫</button>
+</div>
+
+<!-- Question 4 -->
+<div class="quiz-question" id="q4">
+    <p><strong>4. Would you rather:</strong></p>
+    <button onclick="nextQuestion(4, 2)">Solve problems on a computer 🧠</button>
+    <button onclick="nextQuestion(4, 0)">Build things with tools 🛠️</button>
+</div>
+
+<!-- Question 5 -->
+<div class="quiz-question" id="q5">
+    <p><strong>5. Tech keeps changing. How do you feel about learning new things often?</strong></p>
+    <button onclick="nextQuestion(5, 2)">I enjoy learning! 📚</button>
+    <button onclick="nextQuestion(5, 0)">I like sticking to what I know 🔄</button>
+</div>
+
+        <!-- Result -->
+        <div class="quiz-result" id="result">
+            <h3 id="result-title">Your Result</h3>
+            <p id="result-text"></p>
+            <button onclick="resetQuiz()">Retake Quiz 🔄</button>
+        </div>
+    </div>
+</div>
+
+    <script>
+        function quizResponse(answer) {
+            const result = document.getElementById("quiz-result");
+            if (answer === "yes") {
+                result.innerHTML = "Great! CSE might suit you well.";
+                result.style.color = "#2e7d32";
+            } else {
+                result.innerHTML = "Explore other branches too!";
+                result.style.color = "#d32f2f";
+            }
+        }
+    </script>
+
+    <div class="video-section">
+        <h2>📺 Watch👇 this video you have 💯crarity about CSE </h2>
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/kLJHlmXdYK0?rel=0" title="CSE Course Info" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div class="counseling">
+        <h3>📌 Need Help with EAMCET Counseling? OR Want to chose a right  branch?</h3>
+        <p>Book our <strong>1-on-1 paid counseling</strong> for expert guidance in selecting the right branch!</p>
+        <a href="1000paid-cousilling.html" target="_blank">
+            <button>💬 Get Counseling Help</button>
+        </a>
+    </div>
+
+    <div class="buttons">
+        <a href="13AIML.html"><button class="next-btn">➡️ Next Branch</button></a>
+        <a href="index-branches.html"><button class="home-btn">🏠 Back to Home</button></a>
+    </div>
+</div>
 
 
+<script>
+    let totalScore = 0;
+    const maxScore = 11; // Sum of max points per question (2+2+3+2+2)
 
-  { name: "WBJEE Bengal Exam", link: "11WBJEE-BENGAL-EXAM.HTML", icon: "🏙️", desc: "West Bengal Joint Entrance Examination overview." },
-  { name: "Ashoka University Exam", link: "12ashoka-EXAM.html", icon: "🎓", desc: "Entrance details for Ashoka University programs." },
-  { name: "ISBF Exam", link: "12ISBF-EXAM.html", icon: "📈", desc: "Indian School of Business & Finance admission test." },
-  { name: "SNUSAT Exam", link: "12SNSAT-EXAM.html", icon: "📘", desc: "Shiv Nadar University SAT entrance exam info." },
-  { name: "UGC-IITH Entrance", link: "12UGC-IITH-EXAM.html", icon: "🔬", desc: "UGC-based entrance exam at IIT Hyderabad." },
-  { name: "AI & ML", link: "13AIML.html", icon: "🤖", desc: "Learn about Artificial Intelligence and Machine Learning programs." },
-  { name: "Cloud Computing", link: "13cloud_computing.html", icon: "☁️", desc: "Explore cloud computing courses and career scope." },
-  { name: "CSE", link: "13cse.html", icon: "💻", desc: "Computer Science & Engineering program details." },
-  { name: "Cyber Security", link: "13CYBER.html", icon: "🛡️", desc: "Cybersecurity specializations and job opportunities." },
-  { name: "Data Science", link: "13data_science.html", icon: "📊", desc: "Explore data science courses and scope." },
-  { name: "IoT", link: "13IOT.html", icon: "📡", desc: "Internet of Things — career paths and courses." },
-  { name: "Information Technology", link: "13IT.html", icon: "💾", desc: "IT branch subjects, scope, and roles." },
-  { name: "Software Engineering", link: "13software engineering.html", icon: "🧑‍💻", desc: "Career and course overview in Software Engineering." },
-  { name: "Chemical Engineering", link: "14chemical.html", icon: "⚗️", desc: "Explore chemical engineering career options." },
-  { name: "Civil Engineering", link: "14civil.html", icon: "🏗️", desc: "Civil engineering subjects and job opportunities." },
-  { name: "Electronics & Communication", link: "14ece.html", icon: "📡", desc: "ECE branch info – circuits, signals, and more." },
-  { name: "Electrical & Electronics", link: "14eee.html", icon: "🔌", desc: "EEE specialization and engineering jobs." },
-  { name: "Mechanical Engineering", link: "14mech.html", icon: "⚙️", desc: "Mech branch details — machines, design, and scope." },
-  { name: "Biotechnology", link: "15biotech.html", icon: "🧬", desc: "Biotech courses, scope, and job areas." },
-  { name: "Environmental Engineering", link: "15Environmental-Engin.html", icon: "🌿", desc: "Environmental engineering for sustainability careers." },
-  { name: "Food Technology", link: "15food_tech.html", icon: "🍱", desc: "Food tech courses and job roles in industry." },
-
-  { name: "Aerospace Engineering", link: "16aerospace.html", icon: "✈️", desc: "Courses and careers in aerospace engineering." },
-  { name: "Engineering Physics", link: "16engineering_physics.html", icon: "🧲", desc: "Explore core physics applied in engineering." },
-  { name: "Mining Engineering", link: "16mining.html", icon: "⛏️", desc: "Mining engineering branch and its opportunities." },
-  { name: "Robotics", link: "16robotics.html", icon: "🤖", desc: "Learn about robotics engineering and automation." },
-  { name: "IIIT Index Page", link: "23index-iiit.html", icon: "🏫", desc: "Central list of IIIT colleges and info." },
-  { name: "Top 20 TS Colleges", link: "100-ts-20.html", icon: "📋", desc: "Top 20 engineering colleges in Telangana." },
-  { name: "CBIT - Telangana", link: "101-ts-cbit.html", icon: "🏛️", desc: "CBIT Hyderabad - courses, cutoffs, and more." },
-  { name: "MVSR - Telangana", link: "101-ts-mvsr.html", icon: "🏫", desc: "MVSR Engineering College details in Telangana." },
-  { name: "VASAVI - Telangana", link: "103-ts-vasavi.html", icon: "🎓", desc: "Vasavi Engineering College overview." },
-  { name: "JNTU Hyderabad", link: "104-ts-jntu-h.html", icon: "🏢", desc: "JNTU-Hyderabad college details and ranking." },
-  { name: "Gokaraju College", link: "105-ts-gokaraju.html", icon: "📘", desc: "Gokaraju Rangaraju Engineering College info." },
-  { name: "VNR VJIET College", link: "106-ts-vnr vijet.html", icon: "🏫", desc: "Details of VNR Vignana Jyothi Institute." },
-  { name: "Sreenidhi College", link: "107-ts-sreenidhi.html", icon: "📗", desc: "Sreenidhi Institute of Science & Technology." },
-  { name: "TSMJ CET Exam", link: "108-tsmjcet.html", icon: "🕌", desc: "Minority Engineering College CET - Telangana." },
-  { name: "MRCE College", link: "109-TS-MRCE.html", icon: "🏫", desc: "MRCE Engineering College details." },
-  { name: "NRCM College", link: "109-TS-nrcm.html", icon: "🏫", desc: "Narsimha Reddy College of Engineering & Management." },
-  { name: "St. Mary's College", link: "109-TS-ST-MARY'S.html", icon: "⛪", desc: "St. Mary's Engineering College overview." },
-  { name: "MRCET College", link: "109-TS-MRCET.html", icon: "🏫", desc: "Details for Malla Reddy College of Engineering & Tech." },
-  { name: "MREC College", link: "110-TS-MREC.html", icon: "🏫", desc: "Malla Reddy Engineering College full info." },
-  { name: "MRUH University", link: "110-TS-MRUH.html", icon: "🏛️", desc: "Malla Reddy University Hyderabad details." },
-  { name: "CMRCET College", link: "111-TS-CMRCET.HTML", icon: "🏫", desc: "CMR College of Engineering & Technology, Telangana." },
-  
-  
-  { name: "CVR College", link: "112-ts-cvr.html", icon: "🏫", desc: "CVR College of Engineering - Hyderabad." },
-  { name: "MLR Institute", link: "113-ts-mlr.html", icon: "🏛️", desc: "MLR Institute of Technology - Telangana." },
-  { name: "IARE College", link: "114-ts-iare.html", icon: "🚀", desc: "Institute of Aeronautical Engineering (IARE), Hyderabad." },
-  { name: "Stanley College", link: "115-ts-stanley.html", icon: "👩‍🎓", desc: "Stanley College of Engineering for Women." },
-  { name: "Bhoj Reddy College", link: "116-ts-bhojreddy.html", icon: "🎓", desc: "Bhoj Reddy Engineering College for Women." },
-  { name: "TKR College", link: "117-ts-tkr.html", icon: "🏫", desc: "TKR College of Engineering & Technology." },
-  { name: "Mahindra University", link: "118-ts-mahindra-university.html", icon: "🏢", desc: "Engineering and research programs at Mahindra University." },
-  { name: "GITAM University", link: "119-ts-gitam-university.html", icon: "📘", desc: "GITAM Hyderabad Campus - Engineering and more." },
-  { name: "IIITH - Hyderabad", link: "120-ts-iiith.html", icon: "🏛️", desc: "International Institute of Information Technology, Hyderabad." },
-  { name: "Anurag University", link: "121-ts-anurag-university.html", icon: "🎓", desc: "Engineering programs at Anurag University." },
-  { name: "AVN Institute", link: "122-ts-AVN.html", icon: "🏫", desc: "AVN Institute of Engineering & Technology." },
-  { name: "BV Raju Institute", link: "122-ts-bv-raju.html", icon: "🧪", desc: "B V Raju Institute of Technology (BVRIT)." },
-  { name: "JNTU - Sultanpur", link: "122-ts-jntu-sul.html", icon: "🏢", desc: "Jawaharlal Nehru Technological University, Sultanpur." },
-  { name: "Osmania University", link: "122-ts-osmania.html", icon: "🏛️", desc: "Osmania University - oldest and reputed in Hyderabad." },
-  { name: "Vardhaman College", link: "122-ts-vaardhaman.html", icon: "🏫", desc: "Vardhaman College of Engineering, Hyderabad." },
-  { name: "KITS College", link: "123-ts-kits.html", icon: "📗", desc: "Kakatiya Institute of Technology & Science." },
-  { name: "Vaagdevi College", link: "124-ta-vaagdevi.html", icon: "📘", desc: "Vaagdevi College of Engineering - Warangal." },
-  { name: "SR Engineering College", link: "125-ts-sr.html", icon: "🏫", desc: "SR Engineering College, Warangal - Telangana." },
-  { name: "Kakatiya University", link: "126-ts-kakatiya.html", icon: "🏛️", desc: "Kakatiya University – public university in Warangal." },
-  { name: "Jayamukhi Institute", link: "127-ts-jayamukhi.html", icon: "🏫", desc: "Jayamukhi Institute of Tech and Sciences." },
-  { name: "Jyothishmathi Institute", link: "128-ts-jyothishmathi.html", icon: "📘", desc: "Jyothishmathi Institute of Technology & Science." },
-
-  { name: "VITS - Telangana", link: "129-ts-vits.html", icon: "🏫", desc: "Vaagdevi Institute of Technology and Science." },
-  { name: "GURUNANAK - Nizamabad", link: "130-TS-GURUNANAK-nlzambad.html", icon: "🏛️", desc: "Guru Nanak Institute of Technology, Nizamabad." },
-  { name: "SBIT - Telangana", link: "131-ts-sbit.html", icon: "🏫", desc: "St. Mary's Bethany Institute of Technology (SBIT)." },
-  { name: "Anurag - Kodad", link: "132-ts-anurag-kodad.html", icon: "🏫", desc: "Anurag Engineering College, Kodad." },
-  { name: "Priyadarshini College", link: "132-ts-PRIYADARSHINI.html", icon: "🎓", desc: "Priyadarshini Institute of Tech and Science." },
-  { name: "MGIT - Telangana", link: "133-ts-mgit.html", icon: "🏢", desc: "Mahatma Gandhi Institute of Technology." },
-  { name: "FAQs", link: "150-Faqs.html", icon: "❓", desc: "Frequently Asked Questions about counselling and admission." },
-  { name: "Filters Page", link: "150-ts-FILTER.html", icon: "🧮", desc: "Filter college options by rank, location, or course." },
-  { name: "Government Colleges List", link: "150-TS-GOVT.html", icon: "🏛️", desc: "List of top Government colleges in Telangana." },
-  { name: "Demo: Degree Page", link: "900-demo-degree.html", icon: "🧪", desc: "Demo page for UG degree navigation." },
-  { name: "Schools Connection", link: "991schools-con.html", icon: "🏫", desc: "Bridge between school data and counselling." },
-  { name: "Inter Connection", link: "992inter-con.html", icon: "🔗", desc: "Inter-related colleges and streams." },
-  { name: "Demo Site", link: "993demo-site.html", icon: "🌐", desc: "Sample project for college site structure." },
-  { name: "Campus Tours", link: "994campus-tours.html", icon: "🚌", desc: "Explore campus tours and virtual visits." },
-  { name: "Contact & Degree", link: "995constarct-degree.html", icon: "📞", desc: "Contact info and degree details in one page." },
-  { name: "TS College Filter Tool", link: "999-TS-COLLEGE-FILTER.html", icon: "🎛️", desc: "Smart filter for TS colleges by preferences." },
-  { name: "College Predictor", link: "999-TS-COLLEGE-PREDUCTOR.HTML", icon: "🔮", desc: "Predict your college with our smart rank analyzer." },
-  { name: "Paid Counselling", link: "1000paid-cousilling.html", icon: "💰", desc: "Paid counselling service for personal guidance." },
-  { name: "Thank You Page", link: "1000-thank.html", icon: "🙏", desc: "Thank you message after successful session." },
-  { name: "College Profile Template", link: "1003-college-profile.html", icon: "📄", desc: "Sample layout for individual college profiles." },
-  { name: "Final Demo Page", link: "1003-demo.html", icon: "🧪", desc: "Last demo for full navigation structure." },
-
-
- 
-  { name: "TS EAMCET Cut Off", link: "01-cut-off.html", icon: "📉", desc: "Latest TS EAMCET cutoff ranks by college & category." },
-  { name: "eapcet 2024 cut off's", link: "150-eapcet-cut-offs.html", icon: "📉", desc: "Latest TS EAMCET cutoff ranks by college & category." },
-  { name: "BITSAT Exam", link: "10BITSAT.html", icon: "🎯", desc: "Birla Institute of Technology Admission Test details." },
-  { name: "Anurag University", link: "121-ts-anurag-university.html", icon: "🏫", desc: "Anurag University – course, fees, placement info." },
-  
-  { name: "College Profile Template", link: "1003-college-profile.html", icon: "📄", desc: "Sample layout for individual college profiles." },
-  {
-  name: "TS EAPCET All Engineering Colleges List",
-  link: "150-eamcet-all-colleges.html",
-  icon: "📄",
-  desc: "Complete list of all engineering colleges in Telangana under TS EAPCET."
-},
-
-
-
-/*ANDHARA PRADESH (AP)*/
-
-
-
-
-
-
-
-
-/*NATIONAL LEVEL*/
-{ name: "IIT Directory", link: "23-IIT-index.html", icon: "🏫", desc: "Comprehensive profiles of Indian Institutes of Technology (IITs)." },
-{ name: "NIT Directory", link: "23-nit-index.html", icon: "🏫", desc: "Detailed profiles of National Institutes of Technology (NITs)." },
-{ name: "IIIT Directory", link: "23index-iiit.html", icon: "🏫", desc: "Information and profiles of Indian Institutes of Information Technology (IIITs)." },
-{ name: "GFTI Directory", link: "23-gfti-index.html", icon: "🏫", desc: "Institutional profiles of Government Funded Technical Institutes (GFTIs)." }
-
-
-
-
-
-
-
-
-
-
-
-    ];
-
-    function showResults() {
-      const input = document.getElementById('searchBox').value.toLowerCase().trim();
-      const resultsContainer = document.getElementById('searchResults');
-      resultsContainer.innerHTML = "";
-
-      if (input.length === 0) return;
-
-      const filtered = searchData.filter(item =>
-        item.name.toLowerCase().includes(input) || 
-        (item.desc && item.desc.toLowerCase().includes(input)) ||
-        (item.city && item.city.toLowerCase().includes(input))
-      );
-
-      if (filtered.length === 0) {
-        resultsContainer.innerHTML = "<div class='result-card'>❌ No results found. Try different keywords.</div>";
-        return;
-      }
-
-      filtered.forEach(item => {
-        const resultCard = document.createElement("a");
-        resultCard.href = item.link;
-        resultCard.className = "result-card";
-        resultCard.innerHTML = `
-          <h3>${item.icon || '📌'} ${item.name}</h3>
-          <p>${item.desc || ''} ${item.city ? `<br><small>📍 ${item.city}</small>` : ''}</p>
-        `;
-        resultsContainer.appendChild(resultCard);
-      });
+    function nextQuestion(currentQ, score) {
+        totalScore += score;
+        document.getElementById(`q${currentQ}`).classList.remove("active");
+        
+        if (currentQ < 5) {
+            document.getElementById(`q${currentQ + 1}`).classList.add("active");
+        } else {
+            showResult();
+        }
     }
 
-    // Form submission handler
-    const form = document.getElementById("contact-form");
-    const thankYouMessage = document.getElementById("thank-you-message");
-
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const formData = new FormData(form);
-
-      try {
-        const response = await fetch(form.action, {
-          method: form.method,
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-
-        if (response.ok) {
-          form.reset();
-          form.style.display = "none";
-          thankYouMessage.style.display = "block";
+    function showResult() {
+        const resultText = document.getElementById("result-text");
+        const resultContainer = document.getElementById("result");
+        
+        // Calculate percentage
+        const percentage = Math.round((totalScore / maxScore) * 100);
+        
+        // Personalized feedback
+        if (percentage >= 70) {
+            resultText.innerHTML = `🎉 <strong>${percentage}% CSE Fit!</strong> <br> You’re likely to thrive in CSE! Your logical mindset and interest in tech align perfectly.`;
+        } else if (percentage >= 40) {
+            resultText.innerHTML = `🤔 <strong>${percentage}% Neutral Fit.</strong> <br> You might do well if you’re willing to learn, but consider exploring other branches too.`;
         } else {
-          alert("❌ Something went wrong. Please try again.");
+            resultText.innerHTML = `⚠️ <strong>${percentage}% Low Fit.</strong> <br> CSE may frustrate you. Look into Mechanical/Civil/ECE for better alignment.`;
         }
-      } catch (error) {
-        alert("❌ Submission failed. Please check your internet and try again.");
-      }
-    });
-  </script>
+        
+        document.getElementById("quiz-container").scrollIntoView();
+        resultContainer.style.display = "block";
+    }
+
+    function resetQuiz() {
+        totalScore = 0;
+        document.querySelectorAll(".quiz-question").forEach(q => q.classList.remove("active"));
+        document.getElementById("q1").classList.add("active");
+        document.getElementById("result").style.display = "none";
+    }
+</script>
+
 </body>
 </html>
