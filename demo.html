@@ -445,6 +445,149 @@
                 max-width: 1140px;
             }
         }
+
+        /* New styles for voice recording and camera */
+        .voice-recorder {
+            margin: 1rem 0;
+            padding: 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            background: var(--light);
+        }
+        
+        .recorder-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .record-btn {
+            padding: 0.6rem 1.2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+        
+        .record-btn.recording {
+            background: var(--danger);
+            animation: pulse 1.5s infinite;
+        }
+        
+        .record-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+        }
+        
+        .audio-playback {
+            margin-top: 1rem;
+            width: 100%;
+        }
+        
+        .audio-playback audio {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+        
+        .camera-container {
+            margin: 1rem 0;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        #cameraPreview {
+            width: 100%;
+            height: 250px;
+            background-color: #000;
+            object-fit: cover;
+        }
+        
+        .camera-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .camera-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        
+        .capture-btn {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .switch-camera {
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            width: 40px;
+            height: 40px;
+        }
+        
+        .captured-photos {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .photo-thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid var(--light-gray);
+        }
+        
+        .timer-display {
+            margin-top: 10px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .camera-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        .photo-count {
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body>
@@ -523,14 +666,64 @@
                         <textarea id="issueDescription" class="form-control" placeholder="Please describe the issue in detail..." required></textarea>
                     </div>
 
+                    <!-- Voice Recording Section -->
+                    <div class="form-group">
+                        <label>Add Voice Description (Optional)</label>
+                        <div class="voice-recorder">
+                            <p>Record an audio description of the issue</p>
+                            <div class="recorder-controls">
+                                <button type="button" id="recordButton" class="record-btn">
+                                    <i class="fas fa-microphone"></i> Start Recording
+                                </button>
+                                <button type="button" id="stopButton" class="record-btn" disabled>
+                                    <i class="fas fa-stop"></i> Stop
+                                </button>
+                            </div>
+                            <div class="timer-display" id="timer">0:00</div>
+                            <div id="audioPlayback" class="audio-playback hidden">
+                                <p>Your recording:</p>
+                                <audio controls id="audioElement"></audio>
+                                <button type="button" id="deleteRecording" class="record-btn" style="background: var(--danger); margin-top: 10px;">
+                                    <i class="fas fa-trash"></i> Delete Recording
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Camera Upload Section -->
                     <div class="form-group">
                         <label for="issuePhotos" class="required">Upload Photos (3 required)</label>
+                        
+                        <div class="camera-actions">
+                            <span>Photo Options:</span>
+                            <div>
+                                <button type="button" id="openCamera" class="record-btn">
+                                    <i class="fas fa-camera"></i> Take Photos
+                                    <span class="photo-count" id="photoCount">0</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="camera-container hidden" id="cameraContainer">
+                            <video id="cameraPreview" autoplay playsinline></video>
+                            <button type="button" class="camera-btn switch-camera" id="switchCamera">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                            <div class="camera-controls">
+                                <button type="button" class="camera-btn capture-btn" id="captureButton">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="captured-photos" id="capturedPhotos"></div>
+                        
                         <div class="file-upload">
                             <input type="file" id="issuePhotos" multiple accept="image/*" required>
                             <div class="file-upload-icon">
                                 <i class="fas fa-cloud-upload-alt"></i>
                             </div>
-                            <p>Click to upload photos</p>
+                            <p>Click to upload photos or use the camera</p>
                             <small>Take photos from different angles for better verification</small>
                         </div>
                         <div id="file-names" class="mt-1"></div>
@@ -639,7 +832,11 @@
         </div>
     </main>
 
-
+    <footer>
+        <div class="container">
+            <p>Built with ❤️ by CodeThunders for Smart India Hackathon</p>
+        </div>
+    </footer>
 
     <script>
         // Mobile menu toggle
@@ -668,31 +865,8 @@
             
             // File upload name display
             document.getElementById('issuePhotos').addEventListener('change', function(e) {
-                const fileNamesContainer = document.getElementById('file-names');
-                fileNamesContainer.innerHTML = '';
-                
-                if (this.files.length > 0) {
-                    const fileList = document.createElement('p');
-                    fileList.textContent = `Selected ${this.files.length} file(s):`;
-                    
-                    const fileNamesList = document.createElement('ul');
-                    fileNamesList.style.marginLeft = '20px';
-                    fileNamesList.style.marginTop = '5px';
-                    
-                    for (let i = 0; i < this.files.length; i++) {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = this.files[i].name;
-                        fileNamesList.appendChild(listItem);
-                    }
-                    
-                    fileNamesContainer.appendChild(fileList);
-                    fileNamesContainer.appendChild(fileNamesList);
-                    
-                    // Validate that at least 3 photos are uploaded
-                    if (this.files.length < 3) {
-                        fileNamesContainer.innerHTML += '<p style="color: var(--danger);">Please upload at least 3 photos</p>';
-                    }
-                }
+                updateFileNamesDisplay();
+                updatePhotoCount();
             });
             
             // Form submission
@@ -706,18 +880,238 @@
                     return;
                 }
                 
+                // If there's a voice recording, add it to the form data
+                if (window.audioBlob) {
+                    // In a real application, you would send this to your server
+                    console.log('Voice recording attached:', window.audioBlob);
+                }
+                
                 // Show success message
                 alert('Thank you for your report! It has been submitted for verification.');
                 
                 // Reset form
                 this.reset();
                 document.getElementById('file-names').innerHTML = '';
+                document.getElementById('capturedPhotos').innerHTML = '';
+                document.getElementById('audioPlayback').classList.add('hidden');
+                document.getElementById('cameraContainer').classList.add('hidden');
+                document.getElementById('photoCount').textContent = '0';
+                
+                // Stop camera if it's running
+                if (window.stream) {
+                    window.stream.getTracks().forEach(track => track.stop());
+                    window.stream = null;
+                }
+                
+                // Reset audio recording
+                if (window.audioBlob) {
+                    window.audioBlob = null;
+                }
             });
             
             // Simulate location detection
             document.querySelector('[style="background: var(--gray); width: 100%;"]').addEventListener('click', function() {
                 alert('Location detected! Drag the pin to adjust the exact location if needed.');
             });
+            
+            // Voice Recording Functionality
+            let mediaRecorder;
+            let audioChunks = [];
+            window.audioBlob = null;
+            let recordingTimer;
+            let recordingSeconds = 0;
+            
+            const recordButton = document.getElementById('recordButton');
+            const stopButton = document.getElementById('stopButton');
+            const audioPlayback = document.getElementById('audioPlayback');
+            const audioElement = document.getElementById('audioElement');
+            const deleteRecordingButton = document.getElementById('deleteRecording');
+            const timerDisplay = document.getElementById('timer');
+            
+            recordButton.addEventListener('click', async () => {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    
+                    mediaRecorder.ondataavailable = (event) => {
+                        audioChunks.push(event.data);
+                    };
+                    
+                    mediaRecorder.onstop = () => {
+                        window.audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        const audioUrl = URL.createObjectURL(window.audioBlob);
+                        audioElement.src = audioUrl;
+                        audioPlayback.classList.remove('hidden');
+                        
+                        // Reset timer
+                        clearInterval(recordingTimer);
+                        recordingSeconds = 0;
+                        timerDisplay.textContent = '0:00';
+                    };
+                    
+                    audioChunks = [];
+                    mediaRecorder.start();
+                    recordButton.classList.add('recording');
+                    recordButton.disabled = true;
+                    stopButton.disabled = false;
+                    
+                    // Start timer
+                    recordingSeconds = 0;
+                    recordingTimer = setInterval(() => {
+                        recordingSeconds++;
+                        const minutes = Math.floor(recordingSeconds / 60);
+                        const seconds = recordingSeconds % 60;
+                        timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    }, 1000);
+                } catch (err) {
+                    alert('Error accessing microphone: ' + err.message);
+                }
+            });
+            
+            stopButton.addEventListener('click', () => {
+                if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                    mediaRecorder.stop();
+                    mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                    recordButton.classList.remove('recording');
+                    recordButton.disabled = false;
+                    stopButton.disabled = true;
+                }
+            });
+            
+            deleteRecordingButton.addEventListener('click', () => {
+                window.audioBlob = null;
+                audioElement.src = '';
+                audioPlayback.classList.add('hidden');
+            });
+            
+            // Camera Functionality
+            const openCameraButton = document.getElementById('openCamera');
+            const cameraContainer = document.getElementById('cameraContainer');
+            const cameraPreview = document.getElementById('cameraPreview');
+            const switchCameraButton = document.getElementById('switchCamera');
+            const captureButton = document.getElementById('captureButton');
+            const capturedPhotosContainer = document.getElementById('capturedPhotos');
+            const fileInput = document.getElementById('issuePhotos');
+            const photoCount = document.getElementById('photoCount');
+            
+            let stream = null;
+            let facingMode = 'environment'; // Start with back camera
+            
+            openCameraButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                cameraContainer.classList.toggle('hidden');
+                if (!cameraContainer.classList.contains('hidden')) {
+                    initializeCamera();
+                } else {
+                    // Stop camera if hiding
+                    if (stream) {
+                        stream.getTracks().forEach(track => track.stop());
+                        stream = null;
+                    }
+                }
+            });
+            
+            async function initializeCamera() {
+                try {
+                    // Stop any existing stream
+                    if (stream) {
+                        stream.getTracks().forEach(track => track.stop());
+                    }
+                    
+                    const constraints = {
+                        video: { facingMode: facingMode },
+                        audio: false
+                    };
+                    
+                    stream = await navigator.mediaDevices.getUserMedia(constraints);
+                    window.stream = stream;
+                    cameraPreview.srcObject = stream;
+                } catch (err) {
+                    alert('Error accessing camera: ' + err.message);
+                    cameraContainer.classList.add('hidden');
+                }
+            }
+            
+            switchCameraButton.addEventListener('click', () => {
+                // Toggle between front and back camera
+                facingMode = facingMode === 'environment' ? 'user' : 'environment';
+                initializeCamera();
+            });
+            
+            captureButton.addEventListener('click', () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = cameraPreview.videoWidth;
+                canvas.height = cameraPreview.videoHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(cameraPreview, 0, 0, canvas.width, canvas.height);
+                
+                canvas.toBlob((blob) => {
+                    // Create a thumbnail preview
+                    const url = URL.createObjectURL(blob);
+                    const thumbnail = document.createElement('img');
+                    thumbnail.classList.add('photo-thumbnail');
+                    thumbnail.src = url;
+                    
+                    // Add to the captured photos container
+                    capturedPhotosContainer.appendChild(thumbnail);
+                    
+                    // Add to the file input (for form submission)
+                    const file = new File([blob], `photo-${Date.now()}.jpg`, { type: 'image/jpeg' });
+                    const dataTransfer = new DataTransfer();
+                    
+                    // Add existing files
+                    for (let i = 0; i < fileInput.files.length; i++) {
+                        dataTransfer.items.add(fileInput.files[i]);
+                    }
+                    
+                    // Add new file
+                    dataTransfer.items.add(file);
+                    fileInput.files = dataTransfer.files;
+                    
+                    // Update file names display and photo count
+                    updateFileNamesDisplay();
+                    updatePhotoCount();
+                }, 'image/jpeg', 0.8);
+            });
+            
+            function updateFileNamesDisplay() {
+                const fileNamesContainer = document.getElementById('file-names');
+                fileNamesContainer.innerHTML = '';
+                
+                if (fileInput.files.length > 0) {
+                    const fileList = document.createElement('p');
+                    fileList.textContent = `Selected ${fileInput.files.length} file(s):`;
+                    
+                    const fileNamesList = document.createElement('ul');
+                    fileNamesList.style.marginLeft = '20px';
+                    fileNamesList.style.marginTop = '5px';
+                    
+                    for (let i = 0; i < fileInput.files.length; i++) {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = fileInput.files[i].name;
+                        fileNamesList.appendChild(listItem);
+                    }
+                    
+                    fileNamesContainer.appendChild(fileList);
+                    fileNamesContainer.appendChild(fileNamesList);
+                    
+                    // Validate that at least 3 photos are uploaded
+                    if (fileInput.files.length < 3) {
+                        fileNamesContainer.innerHTML += '<p style="color: var(--danger);">Please upload at least 3 photos</p>';
+                    }
+                }
+            }
+            
+            function updatePhotoCount() {
+                photoCount.textContent = fileInput.files.length;
+                
+                // Change color based on count
+                if (fileInput.files.length >= 3) {
+                    photoCount.style.background = 'var(--secondary)';
+                } else {
+                    photoCount.style.background = 'var(--primary)';
+                }
+            }
         });
     </script>
 </body>
