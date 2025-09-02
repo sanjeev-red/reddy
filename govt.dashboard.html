@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Civic Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 220px;
+      height: 100%;
+      background: #2c3e50;
+      color: white;
+      padding-top: 20px;
+    }
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .sidebar a {
+      display: block;
+      padding: 12px 20px;
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .sidebar a:hover {
+      background: #34495e;
+    }
+    .main {
+      margin-left: 220px;
+      padding: 20px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .card:hover {
+      background: #ecf0f1;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+    th {
+      background: #3498db;
+      color: white;
+    }
+    .status {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: white;
+    }
+    .pending { background: #e67e22; }
+    .progress { background: #f1c40f; }
+    .resolved { background: #2ecc71; }
+    button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      background: #3498db;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    /* Right Side Panel */
+    #detailsPanel {
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: 320px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      overflow-y: auto;
+      display: none;
+      z-index: 100;
+    }
+    #detailsPanel h3 {
+      margin-top: 0;
+      color: #2c3e50;
+    }
+    #detailsPanel img {
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Govt Panel</h2>
+    <a href="#">Dashboard</a>
+    <a href="#">Issues List</a>
+    <a href="#">Map View</a>
+    <a href="#">Analytics</a>
+    <a href="#">Settings</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <!-- Topbar -->
+    <div class="topbar">
+      <h2>Smart Civic Dashboard</h2>
+      <div>🔔 Notifications | Admin</div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="cards">
+      <div class="card" id="totalIssuesCard">
+        <h3><a href="location.html">95</h3></a>
+        <p>Total Issues</p>
+      </div>
+      <div class="card">
+        <h3>80</h3>
+        <p>Resolved</p>
+      </div>
+      <div class="card">
+        <h3>30</h3>
+        <p>In Progress</p>
+      </div>
+      <div class="card">
+        <h3>10</h3>
+        <p>Pending</p>
+      </div>
+    </div>
+
+    <!-- Issues Table -->
+    <h3>Recent Issues</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Category</th>
+          <th>Location</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#001</td>
+          <td>Pothole</td>
+          <td>Hyderabad</td>
+          <td>02-Sep</td>
+          <td><span class="status pending">Pending</span></td>
+          <td><button>Assign</button></td>
+        </tr>
+        <tr>
+          <td>#002</td>
+          <td>Streetlight</td>
+          <td>Secunderabad</td>
+          <td>01-Sep</td>
+          <td><span class="status progress">In Progress</span></td>
+          <td><button>Update</button></td>
+        </tr>
+        <tr>
+          <td>#003</td>
+          <td>Garbage</td>
+          <td>Kukatpally</td>
+          <td>30-Aug</td>
+          <td><span class="status resolved">Resolved</span></td>
+          <td><button>View</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Right Side Details Panel -->
+  <div id="detailsPanel">
+    <h3>Issue Details</h3>
+    <div id="detailsContent">Click an issue to see details</div>
+  </div>
+
+  <script>
+    // Example citizen issue data
+    const issueData = {
+      "#001": {
+        citizen: "Ravi Kumar",
+        phone: "9876543210",
+        category: "Pothole",
+        location: "Hyderabad",
+        description: "Big pothole near main road",
+        photo: "https://via.placeholder.com/250",
+        status: "Pending"
+      },
+      "#002": {
+        citizen: "Sita Reddy",
+        phone: "9123456789",
+        category: "Streetlight",
+        location: "Secunderabad",
+        description: "Streetlight not working for 3 days",
+        photo: "https://via.placeholder.com/250",
+        status: "In Progress"
+      },
+      "#003": {
+        citizen: "Mohammed Ali",
+        phone: "9988776655",
+        category: "Garbage",
+        location: "Kukatpally",
+        description: "Garbage not collected since last week",
+        photo: "https://via.placeholder.com/250",
+        status: "Resolved"
+      }
+    };
+
+    // Function to show issue details
+    function showDetails(issueId) {
+      const panel = document.getElementById("detailsPanel");
+      const content = document.getElementById("detailsContent");
+      const data = issueData[issueId];
+
+      if (data) {
+        content.innerHTML = `
+          <p><b>Citizen:</b> ${data.citizen}</p>
+          <p><b>Phone:</b> ${data.phone}</p>
+          <p><b>Category:</b> ${data.category}</p>
+          <p><b>Location:</b> ${data.location}</p>
+          <p><b>Description:</b> ${data.description}</p>
+          <p><b>Status:</b> ${data.status}</p>
+          <img src="${data.photo}" width="100%" alt="Issue Photo"/>
+        `;
+        panel.style.display = "block";
+      }
+    }
+
+    // Add click events for table rows
+    document.querySelectorAll("table tbody tr").forEach(row => {
+      row.addEventListener("click", () => {
+        const issueId = row.cells[0].innerText; // First column = ID
+        showDetails(issueId);
+      });
+    });
+
+    // "Total Issues" card click → Show map
+    document.getElementById("totalIssuesCard").addEventListener("click", () => {
+      const panel = document.getElementById("detailsPanel");
+      const content = document.getElementById("detailsContent");
+      content.innerHTML = `
+        <h4>All Issues Map</h4>
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.3537587919!2d78.48667131539047!3d17.38504458807725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99a9fdafffff%3A0xabcdef123456789!2sHyderabad!5e0!3m2!1sen!2sin!4v1693662123456" 
+          width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+      `;
+      panel.style.display = "block";
+    });
+  </script>
+
+</body>
+</html>

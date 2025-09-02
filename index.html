@@ -18,6 +18,7 @@
       --primary: #2563eb;
       --primary-dark: #1e40af;
       --secondary: #10b981;
+      --secondary-dark: #059669;
       --accent: #f59e0b;
       --danger: #ef4444;
       --light: #f8fafc;
@@ -86,24 +87,35 @@
       max-width: 800px;
       margin: 0 auto 2rem;
     }
-    
+
+    /* Buttons */
     .btn {
-      display: inline-block;
-      background: var(--secondary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
       color: white;
       padding: 1rem 2rem;
       border-radius: 50px;
       font-weight: 600;
       text-decoration: none;
-      transition: transform 0.3s, box-shadow 0.3s;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
+      margin: 0.5rem;
+      min-width: 280px;
     }
     
     .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4);
+      background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--secondary) 100%);
     }
-    
+
+    .btn i {
+      font-size: 1.1rem;
+    }
+
     /* Features Section */
     .features {
       padding: 3rem 1rem;
@@ -251,7 +263,8 @@
       <h1>Smart Issue Reporting Platform</h1>
       <p>Report civic issues instantly & track them in real-time. 
          Empowering Citizens ⚡ Supporting Admins.</p>
-      <a href="demo.html" class="btn"><i class="fas fa-rocket"></i> Try Demo </a>
+      <a href="demo.html" class="btn"><i class="fas fa-mobile-alt"></i> Try Demo Citizen App</a>
+      <a href="govt.dashboard.html" class="btn"><i class="fas fa-chart-line"></i> Try Demo Govt. Dashboard</a>
     </div>
   </section>
 
@@ -312,13 +325,6 @@
       </div>
     </div>
   </section>
-
-  <footer>
-    <div class="container">
-      <p>Built with ❤️ by CodeThunders for Smart India Hackathon</p>
-      <p>Mobile-first UX • Smart Auto-Routing • Community Validation • Real-time Analytics</p>
-    </div>
-  </footer>
 
   <script>
     // Simple animation for elements when they come into view

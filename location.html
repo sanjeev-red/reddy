@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Govt Dashboard</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <style>
+    body { display: flex; font-family: Arial, sans-serif; margin: 0; }
+    #map { height: 100vh; width: 70%; }
+    #panel { width: 30%; padding: 20px; overflow-y: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background: #f4f4f4; }
+    select, input, button { margin: 5px 0; padding: 5px; width: 100%; }
+    tr:hover { background: #f1f1f1; cursor: pointer; }
+    h3 { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <div id="panel">
+    <h2>Govt Dashboard</h2>
+
+    <!-- Filters -->
+    <label>Filter by Location:</label>
+    <select id="locationFilter">
+      <option value="">All</option>
+    </select>
+    <label>Filter by Type:</label>
+    <select id="typeFilter">
+      <option value="">All</option>
+    </select>
+
+    <!-- Search by ID -->
+    <h3>Search Issue by ID</h3>
+    <input type="text" id="searchId" placeholder="Enter Issue ID (e.g., #001)">
+    <button onclick="searchIssue()">Search</button>
+
+    
+    <!-- Issues Table -->
+    <table id="issuesTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Category</th>
+          <th>Location</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Issue Data
+    let issues = [
+  { id: "#001", category: "Pothole", location: "Tolichowki, Hyderabad", lat: 17.398, lng: 78.421, status: "Pending" },
+  { id: "#002", category: "Streetlight", location: "Hyderguda, Hyderabad", lat: 17.392, lng: 78.473, status: "In Progress" },
+  { id: "#003", category: "Garbage", location: "Kukatpally, Hyderabad", lat: 17.493, lng: 78.399, status: "Resolved" },
+  { id: "#004", category: "Water Supply", location: "Koramangala, Bangalore", lat: 12.935, lng: 77.624, status: "Pending" },
+  { id: "#005", category: "Electricity", location: "Whitefield, Bangalore", lat: 12.969, lng: 77.749, status: "In Progress" },
+  { id: "#006", category: "Drainage", location: "Indiranagar, Bangalore", lat: 12.978, lng: 77.640, status: "Pending" },
+  { id: "#007", category: "Traffic Signal", location: "Andheri, Mumbai", lat: 19.119, lng: 72.846, status: "Pending" },
+  { id: "#008", category: "Garbage", location: "Bandra, Mumbai", lat: 19.059, lng: 72.829, status: "In Progress" },
+  { id: "#009", category: "Pothole", location: "Dadar, Mumbai", lat: 19.017, lng: 72.844, status: "Resolved" },
+  { id: "#010", category: "Streetlight", location: "Borivali, Mumbai", lat: 19.229, lng: 72.857, status: "Pending" },
+  { id: "#011", category: "Water Supply", location: "Connaught Place, Delhi", lat: 28.631, lng: 77.216, status: "Resolved" },
+  { id: "#012", category: "Drainage", location: "Karol Bagh, Delhi", lat: 28.651, lng: 77.190, status: "Pending" },
+  { id: "#013", category: "Electricity", location: "Saket, Delhi", lat: 28.527, lng: 77.219, status: "In Progress" },
+  { id: "#014", category: "Garbage", location: "Dwarka, Delhi", lat: 28.592, lng: 77.046, status: "Pending" },
+  { id: "#015", category: "Traffic Signal", location: "Gariahat, Kolkata", lat: 22.518, lng: 88.365, status: "Resolved" },
+  { id: "#016", category: "Streetlight", location: "Salt Lake, Kolkata", lat: 22.586, lng: 88.417, status: "In Progress" },
+  { id: "#017", category: "Pothole", location: "Howrah, Kolkata", lat: 22.595, lng: 88.263, status: "Pending" },
+  { id: "#018", category: "Drainage", location: "T Nagar, Chennai", lat: 13.041, lng: 80.234, status: "Pending" },
+  { id: "#019", category: "Garbage", location: "Velachery, Chennai", lat: 12.978, lng: 80.221, status: "Resolved" },
+  { id: "#020", category: "Electricity", location: "Anna Nagar, Chennai", lat: 13.086, lng: 80.217, status: "In Progress" },
+  { id: "#021", category: "Water Supply", location: "Kothrud, Pune", lat: 18.507, lng: 73.807, status: "Pending" },
+  { id: "#022", category: "Streetlight", location: "Shivajinagar, Pune", lat: 18.528, lng: 73.847, status: "Resolved" },
+  { id: "#023", category: "Garbage", location: "Hinjewadi, Pune", lat: 18.595, lng: 73.738, status: "Pending" },
+  { id: "#024", category: "Pothole", location: "Lalbagh, Lucknow", lat: 26.846, lng: 80.946, status: "Pending" },
+  { id: "#025", category: "Traffic Signal", location: "Hazratganj, Lucknow", lat: 26.852, lng: 80.946, status: "In Progress" },
+  { id: "#026", category: "Garbage", location: "Charbagh, Lucknow", lat: 26.830, lng: 80.921, status: "Resolved" },
+  { id: "#027", category: "Drainage", location: "Banjara Hills, Hyderabad", lat: 17.412, lng: 78.434, status: "Pending" },
+  { id: "#028", category: "Electricity", location: "Miyapur, Hyderabad", lat: 17.498, lng: 78.380, status: "In Progress" },
+  { id: "#029", category: "Streetlight", location: "Gachibowli, Hyderabad", lat: 17.440, lng: 78.348, status: "Pending" },
+  { id: "#030", category: "Water Supply", location: "Jubilee Hills, Hyderabad", lat: 17.427, lng: 78.412, status: "Resolved" }
+];
+
+
+    // Init Map
+    const map = L.map('map').setView([17.4, 78.45], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Markers Store
+    const markers = {};
+
+    // Add Markers
+    function addMarker(issue) {
+      const marker = L.marker([issue.lat, issue.lng]).addTo(map)
+        .bindPopup(`<b>${issue.id}</b><br>${issue.category}<br>${issue.location}`);
+      markers[issue.id] = marker;
+    }
+
+    issues.forEach(addMarker);
+
+    // Populate Filters
+    function updateFilters() {
+      const locFilter = document.getElementById("locationFilter");
+      const typeFilter = document.getElementById("typeFilter");
+      locFilter.innerHTML = '<option value="">All</option>';
+      typeFilter.innerHTML = '<option value="">All</option>';
+
+      const locations = [...new Set(issues.map(i => i.location))];
+      const types = [...new Set(issues.map(i => i.category))];
+
+      locations.forEach(loc => {
+        locFilter.innerHTML += `<option value="${loc}">${loc}</option>`;
+      });
+      types.forEach(cat => {
+        typeFilter.innerHTML += `<option value="${cat}">${cat}</option>`;
+      });
+    }
+
+    // Render Table
+    function renderTable() {
+      const locVal = document.getElementById("locationFilter").value;
+      const typeVal = document.getElementById("typeFilter").value;
+      const tbody = document.querySelector("#issuesTable tbody");
+      tbody.innerHTML = "";
+
+      issues.filter(issue => {
+        return (!locVal || issue.location === locVal) &&
+               (!typeVal || issue.category === typeVal);
+      }).forEach(issue => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${issue.id}</td>
+          <td>${issue.category}</td>
+          <td>${issue.location}</td>
+          <td>${issue.status}</td>
+        `;
+        row.addEventListener("click", () => {
+          map.setView([issue.lat, issue.lng], 15);
+          markers[issue.id].openPopup();
+        });
+        tbody.appendChild(row);
+      });
+    }
+
+    // Search by ID
+    function searchIssue() {
+      const id = document.getElementById("searchId").value.trim();
+      const issue = issues.find(i => i.id === id);
+      if (issue) {
+        map.setView([issue.lat, issue.lng], 15);
+        markers[id].openPopup();
+      } else {
+        alert("Issue ID not found!");
+      }
+    }
+
+    // Add New Issue
+    function addIssue() {
+      const category = document.getElementById("newCategory").value;
+      const location = document.getElementById("newLocation").value;
+      const lat = parseFloat(document.getElementById("newLat").value);
+      const lng = parseFloat(document.getElementById("newLng").value);
+
+      if (!category || !location || isNaN(lat) || isNaN(lng)) {
+        alert("Please fill all fields correctly!");
+        return;
+      }
+
+      const newId = "#00" + (issues.length + 1);
+      const newIssue = { id: newId, category, location, lat, lng, status: "Pending" };
+      issues.push(newIssue);
+
+      addMarker(newIssue);
+      updateFilters();
+      renderTable();
+
+      alert(`New issue submitted with ID: ${newId}`);
+    }
+
+    // Event Listeners
+    document.getElementById("locationFilter").addEventListener("change", renderTable);
+    document.getElementById("typeFilter").addEventListener("change", renderTable);
+
+    // Initial load
+    updateFilters();
+    renderTable();
+  </script>
+</body>
+</html>
